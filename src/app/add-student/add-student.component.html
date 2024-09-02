@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h4>{{ student.id === 0 ? 'Add' : 'Edit' }} Student</h4>
+  <form (ngSubmit)="addStudent()" #studentForm="ngForm">
+    <div class="mb-3">
+      <label for="studentName" class="form-label">Name</label>
+      <input type="text" class="form-control" id="studentName" [(ngModel)]="student.name" name="name" required>
+      <div *ngIf="studentForm.submitted && !studentForm.controls['name']?.valid" class="text-danger">
+        Name is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="studentEmail" class="form-label">Email</label>
+      <input type="email" class="form-control" id="studentEmail" [(ngModel)]="student.email" name="email" required email>
+      <div *ngIf="studentForm.submitted && !studentForm.controls['email']?.valid" class="text-danger">
+        Valid email is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="studentMobile" class="form-label">Mobile</label>
+      <input type="text" class="form-control" id="studentMobile" [(ngModel)]="student.mobile" name="mobile" required pattern="^\d{10}$">
+      <div *ngIf="studentForm.submitted && !studentForm.controls['mobile']?.valid" class="text-danger">
+        Mobile number is required and must be exactly 10 digits.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="studentDob" class="form-label">Date of Birth</label>
+      <input type="date" class="form-control" id="studentDob" [(ngModel)]="student.dob" name="dob" required>
+      <div *ngIf="studentForm.submitted && !studentForm.controls['dob']?.valid" class="text-danger">
+        Date of birth is required.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ student.id === 0 ? 'Add' : 'Update' }} Student</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+    <div *ngIf="studentForm.submitted && !studentForm.form.valid" class="text-danger mt-2">
+      Please fill out all fields correctly before submitting.
+    </div>
+  </form>
+</div>

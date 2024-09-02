@@ -1,0 +1,35 @@
+<nav class="navbar bg-body-tertiary container-width">
+  <div class="container-fluid">
+    <form class="d-flex" role="search" (ngSubmit)="onSearchChange(searchTerm)">
+      <input 
+        class="form-control me-2" 
+        type="search" 
+        placeholder="Search" 
+        aria-label="Search" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearchChange(searchTerm)"
+        name="search">
+    </form>
+    <button class="btn btn-primary ms-auto" (click)="showAddStudentForm()">Add Student</button>
+  </div>
+</nav>
+
+<app-add-student 
+  *ngIf="isAddStudentFormVisible" 
+  [student]="selectedStudent || defaultStudent" 
+  (studentAdded)="addStudent($event)">
+</app-add-student>
+
+<app-student-list
+  *ngIf="isStudentListVisible"
+  [students]="filteredStudents"
+  (editStudent)="editStudent($event)"
+  (deleteStudent)="deleteStudent($event)"
+  (viewStudent)="showStudentDetails($event)">
+</app-student-list>
+
+<app-student-details
+  *ngIf="!isStudentListVisible && !isAddStudentFormVisible && selectedStudent"
+  [student]="selectedStudent"
+  (back)="showStudentList()">
+</app-student-details>
